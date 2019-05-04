@@ -30,7 +30,7 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket createRestApi() {
-		return new Docket(DocumentationType.SWAGGER_2)
+		return new Docket(DocumentationType.SWAGGER_12)
 				.apiInfo(apiInfo())
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.profession.plan.controller"))

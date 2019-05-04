@@ -10,6 +10,9 @@ package com.profession.plan.vo;
 
 import com.profession.plan.constant.HttpStatusConstant;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * @ClassName: ResponseVo
  * @Description: TODO
@@ -17,21 +20,25 @@ import com.profession.plan.constant.HttpStatusConstant;
  * @date 2019年3月24日
  *
  */
+@ApiModel
 public class ResponseVo<T> {
 
 	/**
 	 * 返回状态位
 	 */
+	@ApiModelProperty("状态码 200:正常")
 	private Integer status;
 	
 	/**
 	 * 错误消息
 	 */
+	@ApiModelProperty("非200状态码的错误消息")
 	private String errMsg;
 	
 	/**
 	 * 返回内容体
 	 */
+	@ApiModelProperty("实际数据")
 	private T data;
 	
 	/**
