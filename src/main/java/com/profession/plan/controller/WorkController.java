@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.profession.plan.vo.ResponseVo;
 import com.profession.plan.vo.work.request.ListWorkParam;
+import com.profession.plan.vo.work.ressponse.WorkDetailVo;
 import com.profession.plan.vo.work.ressponse.WorkListVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * @ClassName: Jobcontroller
+ * @ClassName: WorkController
  * @Description: TODO
  * @author 熊正胜
  * @date 2019年5月6日
@@ -61,6 +62,20 @@ public class WorkController {
 	@ApiOperation(value="推荐岗位列表", notes="推荐岗位列表", position=2)
 	@RequestMapping(value = "/recommend", method = RequestMethod.GET)
 	public ResponseVo<List<WorkListVo>> recommendWorks() {
+		return null;
+	}
+	
+	/**
+	 * @Title: queryWorkDetail
+	 * @Description: TODO
+	 * @param workId 岗位id
+	 * @param @return 参数
+	 * @return ResponseVo<WorkDetailVo> 返回类型
+	 * @throws
+	 */
+	@ApiOperation(value="岗位详情", notes="岗位详情", position=3)
+	@RequestMapping(value = "/workDetail", method = RequestMethod.GET)
+	public ResponseVo<WorkDetailVo> queryWorkDetail(Long workId) {
 		return null;
 	}
 }
