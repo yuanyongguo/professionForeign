@@ -12,11 +12,14 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.profession.plan.service.WorkService;
 import com.profession.plan.vo.ResponseVo;
+import com.profession.plan.vo.category.response.CategoryListVo;
 import com.profession.plan.vo.work.request.ListWorkParam;
 import com.profession.plan.vo.work.ressponse.WorkDetailVo;
 import com.profession.plan.vo.work.ressponse.WorkListVo;
@@ -38,6 +41,9 @@ public class WorkController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
+	@Autowired
+	private WorkService workService;
+	
 	/**
 	 * @Title: searchWorks
 	 * @Description: TODO
@@ -48,8 +54,15 @@ public class WorkController {
 	 */
 	@ApiOperation(value="搜索岗位列表", notes="搜索岗位列表", position=1)
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ResponseVo<List<WorkListVo>> searchWorks(ListWorkParam workParam) {
-		return null;
+	public ResponseVo<List<WorkListVo>> searchWorks() {
+		List<WorkListVo> workListVos = null;
+		try {
+			workListVos = workService.listWorks();
+		} catch (Exception e) {
+			logger.error("搜索岗位列表!", e);
+			return ResponseVo.ofFailure(500, "搜索岗位列表!");
+		}
+		return ResponseVo.ofSuccess(workListVos);
 	}
 	
 	/**
@@ -62,7 +75,14 @@ public class WorkController {
 	@ApiOperation(value="推荐岗位列表", notes="推荐岗位列表", position=2)
 	@RequestMapping(value = "/recommend", method = RequestMethod.GET)
 	public ResponseVo<List<WorkListVo>> recommendWorks() {
-		return null;
+		List<WorkListVo> workListVos = null;
+		try {
+			workListVos = workService.listRecommendWorks();
+		} catch (Exception e) {
+			logger.error("推荐岗位列表!", e);
+			return ResponseVo.ofFailure(500, "推荐岗位列表!");
+		}
+		return ResponseVo.ofSuccess(workListVos);
 	}
 	
 	/**
@@ -76,6 +96,13 @@ public class WorkController {
 	@ApiOperation(value="岗位详情", notes="岗位详情", position=3)
 	@RequestMapping(value = "/workDetail", method = RequestMethod.GET)
 	public ResponseVo<WorkDetailVo> queryWorkDetail(Long workId) {
-		return null;
+		WorkDetailVo workDetailVo=null;
+		try {
+			workDetailVo = workService.findWorkById(workId);
+		} catch (Exception e) {
+			logger.error("查询岗位详情!", e);
+			return ResponseVo.ofFailure(500, "查询岗位详情!");
+		}
+		return ResponseVo.ofSuccess(workDetailVo);
 	}
 }

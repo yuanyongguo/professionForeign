@@ -180,6 +180,18 @@ public class Work implements Serializable {
 	 */
 	@Column(name = "version")
 	private Integer version;
+	
+	/**
+	 * 技能id
+	 */
+	@Column(name = "skill_id")
+	private String skillId;
+	
+	/**
+	 * 分类id
+	 */
+	@Column(name = "category_id")
+	private Long categoryId;
 
 	public Long getId() {
 		return id;
@@ -380,4 +392,21 @@ public class Work implements Serializable {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
+
+	public String getSkillId() {
+		return skillId;
+	}
+
+	public void setSkillId(String skillId) {
+		this.skillId = skillId;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+	
 }
