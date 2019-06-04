@@ -16,17 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import com.google.common.collect.Lists;
 import com.profession.plan.entity.Category;
-import com.profession.plan.entity.RecommendWork;
+import com.profession.plan.entity.Skill;
 import com.profession.plan.entity.Work;
 import com.profession.plan.mapper.CategoryMapper;
 import com.profession.plan.mapper.RecommendWorkMapper;
+import com.profession.plan.mapper.SkillMapper;
 import com.profession.plan.mapper.WorkMapper;
 import com.profession.plan.service.WorkService;
-import com.profession.plan.vo.work.request.ListWorkParam;
 import com.profession.plan.vo.work.ressponse.WorkDetailVo;
 import com.profession.plan.vo.work.ressponse.WorkListVo;
 
@@ -49,6 +47,9 @@ public class WorkServiceImpl implements WorkService {
 	private CategoryMapper categoryMapper;
 	@Autowired
 	private RecommendWorkMapper recommendworkMapper;
+	@Autowired
+	private SkillMapper skillMapper;
+	
 
 	/**
 	 * @Title: listWorks
@@ -90,13 +91,13 @@ public class WorkServiceImpl implements WorkService {
 				longs[i]=Long.parseLong(strs[i]);
 			}
 			List<Long> skillIds=Arrays.asList(longs);
-			Example example=new Example(Category.class);
+			Example example=new Example(Skill.class);
 			Example.Criteria criteria = example.createCriteria();
-			criteria.andIn("Id", skillIds);
-			List<Category> listCategory=categoryMapper.selectByExample(example);
-			if(listCategory!=null&&!(listCategory.isEmpty())) {
-				for(Category c:listCategory) {
-					skills.add(c.getName());
+			criteria.andIn("id", skillIds);
+			List<Skill> listSkill=skillMapper.selectByExample(example);
+			if(listSkill!=null&&!(listSkill.isEmpty())) {
+				for(Skill s:listSkill) {
+					skills.add(s.getName());
 				}
 			}
 			workDetailVo.setSkills(skills);
